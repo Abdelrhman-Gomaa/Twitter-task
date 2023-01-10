@@ -1,54 +1,48 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { 
   AutoIncrement, 
+  BelongsTo, 
   BelongsToMany, 
   Column, 
   DataType, 
-  Default, 
-  HasMany, 
+  Default,
+  ForeignKey,
+  HasMany,
   Model, 
   PrimaryKey, 
   Table 
 } from 'sequelize-typescript';
 import { User } from 'src/user/entities/UserEntity';
 
-
+enum status {
+  blocked= 'blocked',
+  pending= 'pending',
+  accepted= 'accepted'
+}
 @Table
 @ObjectType()
-export class Follower {
+export class Follower extends Model{
+
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.INTEGER)   
   @Field(type => Int)
   id: number;
 
-  /*@ForeignKey(() => User)
-  @Column
+  @Default('pending')   
+  @Column(DataType.STRING)
   @Field()
-  followerId: number
+  status: status;
 
   @ForeignKey(() => User)
-  @Column
-  @Field()
-  followingId: number*/
+  @Field(type => Int)
+  userId: number;
 
-  //@BelongsToMany(() => User,(u: User) => u.follwoers)
-  @HasMany(() => User, 'followers_Id')
-  @Field()
-  followers: User[]
+  @BelongsTo(() => User, {})
+  @Field(type => [User],{nullable: 'items'})
+  followers: User[];
 
-  @HasMany(() => User, 'following_Id')
-  @Field()
-  follwing: User[]
-  
-  @Column(DataType.ENUM('blocked', 'pending', 'accepted'))
-  @Default('pending')   
-  @Field()
-  states: string;
-
-  /*
-  states: {
-    type: DataTypes.ENUM,
-    values: ['active', 'pending', 'deleted']
-  }*/
+  @BelongsTo(() => User, {})
+  @Field(type => [User],{nullable: 'items'})
+  following: User[];
 }
