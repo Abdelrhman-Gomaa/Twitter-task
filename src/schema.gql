@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  username: String!
+  email: String!
+  salt: String!
+  password: String!
+  age: Int!
+  location: String!
+  phoneNumber: String!
+  isAdmin: Boolean!
+  nation: String!
+  tweets: [Tweet!]!
+}
+
+type Tweet {
+  id: Int!
+  text: String!
+  userId: Int!
+}
+
+type Query {
+  getAllUser: [User!]!
+  getOneUser(email: String!): User!
+  findAll: [Tweet!]!
+  findAllUserTweet(userId: Float!): [Tweet!]!
+}
+
+type Mutation {
+  register(createUserDto: CreateUserDto!): User!
+  login(loginUserDto: LoginUserDto!): User!
+  createTweet(createTweetInput: CreateTweetInput!): Tweet!
+}
+
+input CreateUserDto {
+  username: String!
+  email: String!
+  password: String!
+  age: Int!
+  location: String!
+  phoneNumber: String!
+  isAdmin: Boolean!
+  nation: String!
+}
+
+input LoginUserDto {
+  email: String!
+  password: String!
+}
+
+input CreateTweetInput {
+  text: String!
+  userId: Int!
+}
