@@ -8,7 +8,6 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { TweetModule } from './tweet/tweet.module';
-import { UserFollwoersModule } from './user.follwoers/user.follwoers.module';
 import { FollowerModule } from './follower/follower.module';
 
 @Module({
@@ -24,7 +23,6 @@ import { FollowerModule } from './follower/follower.module';
     }),
     UserModule,
     TweetModule,
-    UserFollwoersModule,
     FollowerModule
   ],
   controllers: [AppController],
