@@ -1,6 +1,5 @@
 import { 
     AutoIncrement, 
-    BelongsToMany, 
     Column, 
     DataType, 
     HasMany, 
@@ -13,7 +12,7 @@ import {
 import * as bcrypt from 'bcrypt'
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Tweet } from "../../tweet/entities/tweet.entity";
-import { UserFollwoer } from "src/user.follwoers/entities/user.follwoer.entity";
+import { Follower } from "../../follower/entities/follower.entity";
 
 @ObjectType()
 @Table
@@ -64,15 +63,21 @@ export class User extends Model {
     @Field()
     nation: string;
 
+    @Column(DataType.STRING)   
+    @Field()
+    imageUrl: string;
+
     @HasMany(() => Tweet,{})
     @Field(type => [Tweet],{nullable: 'items'})
     tweets: Tweet[]
 
-    @BelongsToMany(() => User, () => UserFollwoer)
-    followers: User[];
-
-    @BelongsToMany(() => User, () => UserFollwoer)
-    following: User[];
+    @HasMany(() => Follower, 'followers_Id')
+    @Field(type => [Follower],{nullable: 'items'})
+    followers: Follower[]
+  
+    @HasMany(() => Follower, 'following_Id')
+    @Field(type => [Follower],{nullable: 'items'})
+    follwing: Follower[]
 
     async validatePassword(password: string): Promise<boolean>{
         const hash = await bcrypt.hash(password, this.salt)
