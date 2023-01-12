@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { TweetModule } from './tweet/tweet.module';
 import { FollowerModule } from './follower/follower.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { FollowerModule } from './follower/follower.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
+    MulterModule.register({
+      dest: './uploads',
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       // code first with auto create schema in path 'src/schema.gql'
