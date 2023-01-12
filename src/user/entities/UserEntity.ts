@@ -65,7 +65,7 @@ export class User extends Model {
 
     @Column(DataType.STRING)   
     @Field()
-    imageUrl: string;
+    imageUrl?: string;
 
     @HasMany(() => Tweet,{})
     @Field(type => [Tweet],{nullable: 'items'})

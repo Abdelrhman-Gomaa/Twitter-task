@@ -24,6 +24,7 @@ import { MulterModule } from '@nestjs/platform-express';
       driver: ApolloDriver,
       // code first with auto create schema in path 'src/schema.gql'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true
     }),
     UserModule,
     TweetModule,

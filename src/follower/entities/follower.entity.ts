@@ -45,4 +45,5 @@ export class Follower extends Model{
   @BelongsTo(() => User, {})
   @Field(type => [User],{nullable: 'items'})
   following: User[];
+  
 }

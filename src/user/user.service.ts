@@ -6,23 +6,47 @@ import { LoginUserDto } from './dto/login.user.dto';
 import { User } from './entities/UserEntity';
 import * as bcrypt from 'bcrypt'
 import { JwtPayload } from './jwt.payload.interface';
+import * as DataLoader from "dataloader";
 
 @Injectable()
 export class UserService {
+       
     constructor(
         @Inject('USER_REPOSITORY')
         private readonly userRepository: typeof User,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
     ){}
+
+    private readonly dataloader = new DataLoader<number, User>(keys => this.getMany(Array.from(keys)));
+    private async getMany(ids: number[]) {
+        return await this.userRepository.findAll({where: {id: ids}});
+    }
+    async dataload(ids: number[]){
+        return this.dataloader.loadMany(ids)
+    }
 
     async findAll() {
         const user = this.userRepository.findAll()
         return user;
     }
 
-
     async findOneUser(email: string) {
         const user = this.userRepository.findOne({where: {email: email}})
+        return user;
+    }
+
+    async findUserById(id: number) {
+        const user = this.userRepository.findOne({where: {id: id}})
+        return user;
+    }
+
+    async findByIds(ids: number[]) {
+        const user = this.userRepository.findAll({where: {id: ids}})
+        return user;
+    }
+
+    async findfollower(id: number) {
+        const user = this.userRepository.findOne({where: {id: id}})
         return user;
     }
 
@@ -53,7 +77,7 @@ export class UserService {
         }
     }
 
-    async signIn(loginUserDto: LoginUserDto){ //: Promise<{accessToken: string}>
+    /*async signIn(loginUserDto: LoginUserDto){ //: Promise<{accessToken: string}>
         const user = await this.validationUserPassword(loginUserDto)
         if(!user) {
             throw new UnauthorizedException('Invalid Credentials')
@@ -61,9 +85,27 @@ export class UserService {
 
         const payload: JwtPayload = { email: user.email , isAdmin: user.isAdmin }
         const accessToken = await this.jwtService.sign(payload)
+        //const aa = await this.jwtService.verify(accessToken)
         console.log(accessToken)
         //return { accessToken }
         return user
+    }*/
+
+    async login(loginUserDto: LoginUserDto){ //: Promise<{accessToken: string}>
+        const user = await this.validationUserPassword(loginUserDto)
+        if(!user) {
+            throw new UnauthorizedException('Invalid Credentials')
+        }
+
+        const payload: JwtPayload = { email: user.email , isAdmin: user.isAdmin }
+        const accessToken = await this.jwtService.sign(payload)
+        //const aa = await this.jwtService.verify(accessToken)
+        console.log(accessToken)
+        //return { accessToken }
+        return {
+            access_Token: accessToken,
+            user: user
+        }
     }
 
     /*async getTweet(){
@@ -87,4 +129,19 @@ export class UserService {
             return null;
         }
     }
+//------------------------------------
+    async validation(email: string, password: string){
+        const user = await this.findOneUser(email)
+        if(user){
+            if(await user.validatePassword(password)){
+                const {password, ...result} = user
+                return result;
+            }else{
+                throw new UnauthorizedException('Invalid Password')
+            }
+        }else{
+            return null;
+        }
+    }
+
 }

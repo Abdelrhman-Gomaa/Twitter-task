@@ -45,6 +45,6 @@ export class CreateUserDto {
 
     @IsString()    
     @Field()
-    imageUrl: string;
+    imageUrl?: string;
 
 }
