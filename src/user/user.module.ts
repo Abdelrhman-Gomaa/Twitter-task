@@ -10,6 +10,12 @@ import { UserProviders } from './users.provider';
 import { UserResolver } from './user.resolver';
 import { TweetService } from 'src/tweet/tweet.service';
 import { TweetProviders } from 'src/tweet/tweet.provider';
+import { FollowerService } from 'src/follower/follower.service';
+import { FollowerProviders } from '../follower/follower.provider';
+import { DataLoaderModule } from './loader/user.loader';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import {DataLoaderInterceptor} from 'nestjs-dataloader'
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -20,6 +26,9 @@ import { TweetProviders } from 'src/tweet/tweet.provider';
       signOptions: {
         expiresIn: '24h',
       }
+    }),
+    MulterModule.register({
+      dest: 'src/uploads/',
     })
   ],
   controllers: [UserController],
@@ -30,7 +39,14 @@ import { TweetProviders } from 'src/tweet/tweet.provider';
     JwtStrategy,
     UserResolver,
     TweetService,
-    ...TweetProviders
+    ...TweetProviders,
+    FollowerService,
+    ...FollowerProviders,
+    DataLoaderModule,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: DataLoaderInterceptor
+    },
   ],
   exports: [
     JwtStrategy,
