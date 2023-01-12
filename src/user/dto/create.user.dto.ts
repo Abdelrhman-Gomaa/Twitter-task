@@ -43,4 +43,8 @@ export class CreateUserDto {
     @Field()
     readonly nation: string;
 
+    @IsString()    
+    @Field()
+    imageUrl: string;
+
 }
