@@ -35,20 +35,18 @@ export const databaseProviders = [
         }).catch((err) => {
           console.log(`Can't synchronization User In BD ------------------------------ ${err.message}`)
         });
-
       Tweet.sync({alter: true})
         .then(() =>{
           console.log(`Tweet synchronization In DB Successfully------------------------------`)
         }).catch((err) => {
           console.log(`Can't synchronization Tweet In BD ------------------------------ ${err.message}`)
-        })*/
+        })
       Follower.sync({alter: true})
         .then(() =>{
           console.log(`Tweet synchronization In DB Successfully------------------------------`)
         }).catch((err) => {
           console.log(`Can't synchronization Tweet In BD ------------------------------ ${err.message}`)
-        })
-        ;
+        });*/
 
       sequelize.sync({alter: true})
         .then(() =>{
