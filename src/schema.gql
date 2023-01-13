@@ -6,7 +6,6 @@ input CreateFollowerInput {
   followers_Id: Float!
   following_Id: Float!
   status: String!
-  userId: Int!
 }
 
 input CreateTweetInput {
@@ -27,11 +26,10 @@ input CreateUserDto {
 }
 
 type Follower {
-  followers: [User!]!
-  following: [User]!
+  followers_Id: Int!
+  following_Id: Int!
   id: Int!
   status: String!
-  userId: Int!
 }
 
 type LoginResponse {
@@ -54,8 +52,10 @@ type Mutation {
 type Query {
   findAll: [Tweet!]!
   findAllUserTweet(userId: Float!): [Tweet!]!
-  findFollowerForUser(id: Int!): Follower!
-  findOneFollower(id: Int!): Follower!
+  findFollower(id: Int!): Follower!
+  findFollowing(id: Int!): Follower!
+  findstatus(id: Float!): Follower!
+  findstatusByString(status: String!): Follower!
   follower: [Follower!]!
   getAllUser: [User!]!
   getOneUser(email: String!): User!
