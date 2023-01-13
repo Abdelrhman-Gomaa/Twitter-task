@@ -19,24 +19,28 @@ export class FollowerResolver {
   }
 
   @Query(() => [Follower], { name: 'follower' })
-  findAll() {
-    return this.followerService.findAll();
+  async findAll() {
+    return await this.followerService.findAll();
   }
 
-  @ResolveField('followers', returns => [User])
-    async posts(@Parent() users: User) {
-    const { id } = users;
-    return this.userService.findUserById(id);
+  @Query(() => Follower)
+  async findFollower(@Args('id', { type: () => Int }) id: number) {
+    return await this.followerService.findFollower(id);
   }
 
-  @Query(() => Follower, { name: 'findOneFollower' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.followerService.findOne(id);
+  @Query(() => Follower)
+  async findFollowing(@Args('id', { type: () => Int }) id: number) {
+    return await this.followerService.findFollowing(id);
   }
 
-  @Query(() => Follower, { name: 'findFollowerForUser' })
-  findUser(@Args('id', { type: () => Int }) id: number) {
-    return this.followerService.findFollowing(id);
+  @Query(() => Follower)
+  async findstatus(@Args('id') id: number) {
+    return await this.followerService.findstatus(id);
+  }
+
+  @Query(() => Follower)
+  async findstatusByString(@Args('status') status: string) {
+    return await this.followerService.findstatusbystring(status);
   }
 
   /*

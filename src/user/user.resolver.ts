@@ -54,6 +54,19 @@ export class UserResolver {
     return this.tweetService.findTweet(id);
     }
 
+
+    /*@ResolveField('followers', returns => [User])
+    async followers(@Parent() users: User) {
+      const { id } = users;
+      return this.userService.findUserById(id);
+    }
+  
+    @ResolveField('following', returns => [User])
+    async folowing(@Parent() users: User) {
+      const { id } = users;
+      return this.userService.findUserById(id);
+    }*/
+
     /*@Mutation(returns => Boolean)
     @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
     async imageUpload(@UploadedFile() files: Express.Multer.File){ // @Args('createUserDto') createUserDto: CreateUserDto

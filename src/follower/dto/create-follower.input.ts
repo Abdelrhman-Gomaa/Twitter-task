@@ -10,10 +10,6 @@ export class CreateFollowerInput {
   status: string;
 
   @IsNumber()
-  @Field(type => Int)
-  userId: number;
-
-  @IsNumber()
   @Field()
   followers_Id: number;
 

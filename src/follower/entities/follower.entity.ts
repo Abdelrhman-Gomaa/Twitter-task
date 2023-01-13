@@ -36,14 +36,18 @@ export class Follower extends Model{
 
   @ForeignKey(() => User)
   @Field(type => Int)
-  userId: number;
+  followers_Id: number;
 
-  @BelongsTo(() => User, {})
+  @ForeignKey(() => User)
+  @Field(type => Int)
+  following_Id: number;
+
+  /*@BelongsTo(() => User, {})
   @Field(type => [User],{nullable: 'items'})
   followers: User[];
 
   @BelongsTo(() => User, {})
   @Field(type => [User],{nullable: 'items'})
-  following: User[];
+  following: User[];*/
   
 }
