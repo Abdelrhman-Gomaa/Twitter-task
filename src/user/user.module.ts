@@ -1,23 +1,20 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { DatabaseModule } from 'src/database/database.module';
-import { JwtConstants } from '../../constants';
-import { JwtStrategy } from './jwt.strategy';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { UserProviders } from './users.provider';
-import { UserResolver } from './user.resolver';
-import { TweetService } from 'src/tweet/tweet.service';
-import { TweetProviders } from 'src/tweet/tweet.provider';
-import { FollowerService } from 'src/follower/follower.service';
-import { FollowerProviders } from '../follower/follower.provider';
-import { DataLoaderModule } from './loader/user.loader';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import {DataLoaderInterceptor} from 'nestjs-dataloader'
-import { MulterModule } from '@nestjs/platform-express';
-import { LocalStrategy } from './local.strategy';
-import { JwtAuthGaurd } from './jwt-auth.caurd';
+import { Module } from "@nestjs/common";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { MulterModule } from "@nestjs/platform-express";
+import { JwtConstants } from "../../constants";
+import { JwtStrategy } from "./jwt.strategy";
+import { UserResolver } from "./user.resolver";
+import { UserService } from "./user.service";
+import { UserProviders } from "./users.provider";
+import { DatabaseModule } from "src/database/database.module";
+import { TweetService } from "src/tweet/tweet.service";
+import { TweetProviders } from "src/tweet/tweet.provider";
+import { FollowerService } from "src/follower/follower.service";
+import { FollowerProviders } from "src/follower/follower.provider";
+import { DataLoaderModule } from "./loader/user.loader";
+import { LocalStrategy } from "./local.strategy";
+import { UserController } from "./user.controller";
 
 @Module({
   imports: [
@@ -46,10 +43,10 @@ import { JwtAuthGaurd } from './jwt-auth.caurd';
     ...FollowerProviders,
     LocalStrategy,
     DataLoaderModule,
-    {
+    /*{
       provide: APP_INTERCEPTOR,
       useClass: DataLoaderInterceptor
-    },
+    },*/
   ],
   exports: [
     JwtStrategy,

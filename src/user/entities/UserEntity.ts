@@ -14,8 +14,8 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Tweet } from "../../tweet/entities/tweet.entity";
 import { Follower } from "../../follower/entities/follower.entity";
 
-@ObjectType()
 @Table
+@ObjectType()
 export class User extends Model {
 
     @PrimaryKey

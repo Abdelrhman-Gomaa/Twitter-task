@@ -1,7 +1,7 @@
 import { UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, GqlArgumentsHost, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express/multer';
-import { FollowerService } from 'src/follower/follower.service';
+import { JwtAuthGaurd } from './jwt-auth.caurd';
 import { Tweet } from 'src/tweet/entities/tweet.entity';
 import { TweetService } from 'src/tweet/tweet.service';
 import { CreateUserDto } from './dto/create.user.dto';
@@ -9,7 +9,7 @@ import { LoginUserDto } from './dto/login.user.dto';
 import { User } from './entities/UserEntity';
 import { UserService } from './user.service';
 import { LoginResponse } from './dto/login.response';
-import { JwtAuthGaurd } from './jwt-auth.caurd';
+import { FollowerService } from 'src/follower/follower.service';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -42,6 +42,7 @@ export class UserResolver {
 
     // Get One User By Email
     @Query(returns => User)
+    @UseGuards(JwtAuthGaurd)
     getOneUser(@Args('email') email: string): Promise<User>{
         return this.userService.findOneUser(email)
     }
