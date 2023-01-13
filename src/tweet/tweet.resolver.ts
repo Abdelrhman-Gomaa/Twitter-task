@@ -2,8 +2,6 @@ import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nes
 import { TweetService } from './tweet.service';
 import { Tweet } from './entities/tweet.entity';
 import { CreateTweetInput } from './dto/create-tweet.input';
-import { AuthGuard } from '@nestjs/passport';
-import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Tweet)
 export class TweetResolver {
