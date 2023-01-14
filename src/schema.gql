@@ -26,8 +26,8 @@ input CreateUserDto {
 }
 
 type Follower {
-  followers_Id: Int!
-  following_Id: Int!
+  followers_Id: User!
+  following_Id: User!
   id: Int!
   status: String!
 }
@@ -52,10 +52,10 @@ type Mutation {
 type Query {
   findAll: [Tweet!]!
   findAllUserTweet(userId: Float!): [Tweet!]!
-  findFollower(id: Int!): Follower!
-  findFollowing(id: Int!): Follower!
+  findFollower(id: Float!): [Follower!]!
+  findFollowing(id: Float!): [Follower!]!
   findstatus(id: Float!): Follower!
-  findstatusByString(status: String!): Follower!
+  findstatusByString(status: String!): [Follower!]!
   follower: [Follower!]!
   getAllUser: [User!]!
   getOneUser(email: String!): User!
@@ -70,8 +70,8 @@ type Tweet {
 type User {
   age: Int!
   email: String!
-  followers: [Follower]!
-  follwing: [Follower]!
+  followers: [Follower!]!
+  follwing: [Follower!]!
   id: Int!
   imageUrl: String!
   isAdmin: Boolean!
