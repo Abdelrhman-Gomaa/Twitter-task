@@ -8,6 +8,11 @@ input CreateFollowerInput {
   status: String!
 }
 
+input CreateReactInput {
+  tweet_Id: Int!
+  user_Id: Int!
+}
+
 input CreateTweetInput {
   text: String!
   userId: Int!
@@ -44,12 +49,16 @@ input LoginUserDto {
 
 type Mutation {
   createFollower(createFollowerInput: CreateFollowerInput!): Follower!
+  createReact(createReactInput: CreateReactInput!): React!
   createTweet(createTweetInput: CreateTweetInput!): Tweet!
   login(loginUserInput: LoginUserDto!): LoginResponse!
   register(createUserDto: CreateUserDto!): User!
 }
 
 type Query {
+  FindAllReact: [React!]!
+  FindOneTweet(id: Int!): [React!]!
+  FindOneUser(id: Int!): [React!]!
   findAll: [Tweet!]!
   findAllUserTweet(userId: Float!): [Tweet!]!
   findFollower(id: Float!): [Follower!]!
@@ -61,8 +70,15 @@ type Query {
   getOneUser(email: String!): User!
 }
 
+type React {
+  id: Int!
+  tweet_Id: Tweet!
+  user_Id: User!
+}
+
 type Tweet {
   id: Int!
+  react: [React!]!
   text: String!
   userId: Int!
 }
@@ -79,6 +95,7 @@ type User {
   nation: String!
   password: String!
   phoneNumber: String!
+  react: [React]!
   salt: String!
   tweets: [Tweet!]!
   username: String!
