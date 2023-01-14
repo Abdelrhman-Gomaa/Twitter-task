@@ -1,26 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateReactInput } from './dto/create-react.input';
-import { UpdateReactInput } from './dto/update-react.input';
+import { React } from './entities/react.entity';
 
 @Injectable()
 export class ReactService {
-  create(createReactInput: CreateReactInput) {
-    return 'This action adds a new react';
+  constructor(
+    @Inject('REACT_REPOSITORY')
+    private readonly reactRepository: typeof React
+  ){}
+
+  async create(createReactInput: CreateReactInput) {
+    return await this.reactRepository.create({...createReactInput})
   }
 
-  findAll() {
-    return `This action returns all react`;
+  async findAll() {
+    return await this.reactRepository.findAll()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} react`;
+  async findOnetweet(id: number) {
+    return await this.reactRepository.findAll({where: {tweet_Id: id}})
   }
 
-  update(id: number, updateReactInput: UpdateReactInput) {
+  async findOneUser(id: number) {
+    return await this.reactRepository.findAll({where: {user_Id: id}})
+  }
+
+  /*async update(id: number, updateReactInput: UpdateReactInput) {
     return `This action updates a #${id} react`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} react`;
-  }
+  }*/
 }
