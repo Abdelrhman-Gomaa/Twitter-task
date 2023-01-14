@@ -10,6 +10,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
+import { ReactModule } from './react/react.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { DatabaseModule } from './database/database.module';
     }),
     UserModule,
     TweetModule,
-    FollowerModule
+    FollowerModule,
+    ReactModule
   ],
   controllers: [AppController],
   providers: [AppService],
