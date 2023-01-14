@@ -26,6 +26,10 @@ constructor(
     return await this.tweetRepository.findAll({where:{userId:userId}})
   }
 
+  async findOneTweet(id:number) {
+    return await this.tweetRepository.findOne({where: {id:id}})
+  }
+
   /*async findTweetUser(id: number): Promise<User>{
     return await this.userRepository.findOne({where:{id: id}})
   }*/
