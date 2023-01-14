@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt'
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Tweet } from "../../tweet/entities/tweet.entity";
 import { Follower } from "../../follower/entities/follower.entity";
+import { React } from "../../react/entities/react.entity";
 
 @Table
 @ObjectType()
@@ -78,6 +79,10 @@ export class User extends Model {
     @HasMany(() => Follower, 'following_Id')
     @Field(type => [Follower],{nullable: 'items'})
     follwing: Follower[]
+
+    @HasMany(() => React, 'react_Id')
+    @Field(type => [React],{nullable: 'items'})
+    react: React[]
 
     async validatePassword(password: string): Promise<boolean>{
         const hash = await bcrypt.hash(password, this.salt)

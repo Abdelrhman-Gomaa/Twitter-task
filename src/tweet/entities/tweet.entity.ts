@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { PrimaryKey, AutoIncrement, Column, DataType, Table, ForeignKey, BelongsTo, Model } from 'sequelize-typescript';
+import { PrimaryKey, AutoIncrement, Column, DataType, Table, ForeignKey, Model, HasMany } from 'sequelize-typescript';
+import { React } from 'src/react/entities/react.entity';
 import { User } from '../../user/entities/UserEntity';
 
 @Table
@@ -20,7 +21,8 @@ export class Tweet extends Model {
   @Field(type => Int)
   userId: number;
 
-  /*@BelongsTo(() => User)  
-  @Field(type => User)
-  user: User;*/
+  @HasMany(() => React, 'react_Id')
+  @Field(type => [React],{nullable: 'items'})
+  react: React[]
+
 }
