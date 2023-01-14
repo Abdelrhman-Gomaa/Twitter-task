@@ -1,16 +1,17 @@
 import { UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Parent, Query, ResolveField, ResolveProperty, Resolver, Root } from '@nestjs/graphql';
 import { FileFieldsInterceptor } from '@nestjs/platform-express/multer';
 import { JwtAuthGaurd } from './jwt-auth.caurd';
-import { Tweet } from 'src/tweet/entities/tweet.entity';
-import { TweetService } from 'src/tweet/tweet.service';
+import { Tweet } from '../tweet/entities/tweet.entity';
+import { TweetService } from '../tweet/tweet.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { LoginUserDto } from './dto/login.user.dto';
 import { User } from './entities/UserEntity';
 import { UserService } from './user.service';
 import { LoginResponse } from './dto/login.response';
 import { FollowerService } from 'src/follower/follower.service';
-import { Follower } from 'src/follower/entities/follower.entity';
+import { Follower } from '../follower/entities/follower.entity';
+import { MyContext } from '../types/myContext';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -54,6 +55,11 @@ export class UserResolver {
     const { id } = tweets;
     return this.tweetService.findTweet(id);
     }
+
+    /*@ResolveProperty('tweets')
+    async tweet(@Root() tweet: Tweet, @Context() ctx:MyContext): Promise<Tweet[]>{
+        return await ctx.tweetLoader.load(tweet.userId)
+    }*/
 
     // Get FOllowers
     @ResolveField('followers', returns => [Follower])
