@@ -1,13 +1,10 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { 
-  AutoIncrement, 
-  BelongsTo, 
-  BelongsToMany, 
+  AutoIncrement,
   Column, 
   DataType, 
   Default,
   ForeignKey,
-  HasMany,
   Model, 
   PrimaryKey, 
   Table 
@@ -41,13 +38,5 @@ export class Follower extends Model{
   @ForeignKey(() => User)
   @Field(type => Int)
   following_Id: number;
-
-  /*@BelongsTo(() => User, {})
-  @Field(type => [User],{nullable: 'items'})
-  followers: User[];
-
-  @BelongsTo(() => User, {})
-  @Field(type => [User],{nullable: 'items'})
-  following: User[];*/
   
 }

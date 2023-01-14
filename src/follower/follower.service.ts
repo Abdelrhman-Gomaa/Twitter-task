@@ -18,15 +18,15 @@ constructor(
   }
 
   async findFollower(userId: number) {
-    return await this.followersRepository.findAll({where:{followers_Id:userId}})
-  }
-
-  async findFollowing(userId: number) {
     return await this.followersRepository.findAll({where:{following_Id:userId}})
   }
 
+  async findFollowing(userId: number) {
+    return await this.followersRepository.findAll({where:{followers_Id:userId}})
+  }
+
   async findstatus(userId: number) {
-    return await this.followersRepository.findAll({where:{id:userId}})
+    return await this.followersRepository.findByPk(userId)
   }
 
   async findstatusbystring(status: string) {

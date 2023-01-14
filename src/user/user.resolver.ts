@@ -1,6 +1,6 @@
 import { UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-import { Args, GqlArgumentsHost, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express/multer';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { FileFieldsInterceptor } from '@nestjs/platform-express/multer';
 import { JwtAuthGaurd } from './jwt-auth.caurd';
 import { Tweet } from 'src/tweet/entities/tweet.entity';
 import { TweetService } from 'src/tweet/tweet.service';
@@ -10,6 +10,7 @@ import { User } from './entities/UserEntity';
 import { UserService } from './user.service';
 import { LoginResponse } from './dto/login.response';
 import { FollowerService } from 'src/follower/follower.service';
+import { Follower } from 'src/follower/entities/follower.entity';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -54,54 +55,18 @@ export class UserResolver {
     return this.tweetService.findTweet(id);
     }
 
-
-    /*@ResolveField('followers', returns => [User])
-    async followers(@Parent() users: User) {
-      const { id } = users;
-      return this.userService.findUserById(id);
+    // Get FOllowers
+    @ResolveField('followers', returns => [Follower])
+    async getFollowers(@Parent() followers: Follower) {
+        const { id } = followers;
+        return this.followerService.findFollower(id);
     }
-  
-    @ResolveField('following', returns => [User])
-    async folowing(@Parent() users: User) {
-      const { id } = users;
-      return this.userService.findUserById(id);
-    }*/
-
-    /*@Mutation(returns => Boolean)
-    @UseInterceptors(FileFieldsInterceptor([{ name: 'photo', maxCount: 1 }]))
-    async imageUpload(@UploadedFile() files: Express.Multer.File){ // @Args('createUserDto') createUserDto: CreateUserDto
-        //if (files && files.photo) createUserDto.imageUrl = files.photo[0].secure_url;
-        //return new Promise(async (resolver, reject) =>{
-        //    files
-        //})
-        //console.log(file)
-        //return await this.userService.register(createUserDto)
-        return true
-
-    }*/
-
-    /*@Mutation(() => Boolean)
-    async addProfilePic(@Args("picture", () =>)){
-
-    }*/
-
-    /*@Query(returns => [User])
-    getUsersByDataLoader(@Args('ids') ids: number[]){
-        return this.userService.dataload(ids)
-    }*/
-
-    /*@ResolveField('followers', returns => [User])
-    async follower(@Parent() follower: User) {
-        for(let i = 0; i <follower.followers.length ; i++){
-            return this.userService.findfollower(follower.followers[i]);
-        }
+    
+    // Get FOllowing
+    @ResolveField('follwing', returns => [Follower])
+    async getFollwing(@Parent() follwing: Follower) {
+        const { id } = follwing; 
+        return this.followerService.findFollowing(id);
     }
-
-    @ResolveField('following', returns => [User])
-    async following(@Parent() follower: User) {
-        for(let i = 0; i <follower.following.length ; i++){
-            return this.userService.findfollower(follower.following[i]);
-        }   
-    }*/
 
 }
