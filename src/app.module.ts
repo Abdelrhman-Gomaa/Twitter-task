@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { ReactModule } from './react/react.module';
+import { TweetLoader } from './dataloader/tweet.dataloader';
 
 @Module({
   imports: [
@@ -25,7 +26,12 @@ import { ReactModule } from './react/react.module';
       driver: ApolloDriver,
       // code first with auto create schema in path 'src/schema.gql'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true
+      sortSchema: true,
+      context: ({req, res}) =>({
+        req,
+        res,
+        tweetLoader: TweetLoader(),
+      })
     }),
     UserModule,
     TweetModule,
