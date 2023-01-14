@@ -30,6 +30,11 @@ constructor(
     return await this.tweetRepository.findOne({where: {id:id}})
   }
 
+  async findByIds(ids: number[]) {
+    const user = this.tweetRepository.findAll({where: {id: ids}})
+    return user;
+  }
+
   /*async findTweetUser(id: number): Promise<User>{
     return await this.userRepository.findOne({where:{id: id}})
   }*/
