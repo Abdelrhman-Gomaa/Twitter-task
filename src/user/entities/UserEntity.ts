@@ -80,7 +80,7 @@ export class User extends Model {
     @Field(type => [Follower],{nullable: 'items'})
     follwing: Follower[]
 
-    @HasMany(() => React, 'react_Id')
+    @HasMany(() => React, 'user_Id')
     @Field(type => [React],{nullable: 'items'})
     react: React[]
 

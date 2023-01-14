@@ -14,7 +14,7 @@ export class React extends Model{
 
   @ForeignKey(() => User)
   @Field(type => Int)
-  user_Id: number;
+  user_Id: number; 
 
   @ForeignKey(() => Tweet)
   @Field(type => Int)
