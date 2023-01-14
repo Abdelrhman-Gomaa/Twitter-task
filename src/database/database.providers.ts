@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Follower } from "src/follower/entities/follower.entity";
+import { React } from "src/react/entities/react.entity";
 import { Tweet } from "src/tweet/entities/tweet.entity";
 import { User } from "../user/entities/UserEntity";
 
@@ -18,7 +19,7 @@ export const databaseProviders = [
           timestamps: false
         }
       });
-      sequelize.addModels([User,Tweet,Follower])//
+      sequelize.addModels([User,Tweet,Follower,React])//
       //await sequlize.sync();
 
       // Check dataBase Connection
@@ -43,10 +44,16 @@ export const databaseProviders = [
         })
       Follower.sync({alter: true})
         .then(() =>{
-          console.log(`Tweet synchronization In DB Successfully------------------------------`)
+          console.log(`Follower synchronization In DB Successfully------------------------------`)
         }).catch((err) => {
-          console.log(`Can't synchronization Tweet In BD ------------------------------ ${err.message}`)
-        });*/
+          console.log(`Can't synchronization Follower In BD ------------------------------ ${err.message}`)
+        });
+      React.sync({alter: true})
+        .then(() =>{
+          console.log(`React synchronization In DB Successfully------------------------------`)
+        }).catch((err) => {
+          console.log(`Can't synchronization React In BD ------------------------------ ${err.message}`)
+        })*/
 
       sequelize.sync({alter: true})
         .then(() =>{
