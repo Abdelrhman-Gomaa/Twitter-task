@@ -1,7 +1,15 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { PrimaryKey, AutoIncrement, Column, DataType, ForeignKey, Table, Model } from 'sequelize-typescript';
-import { Tweet } from 'src/tweet/entities/tweet.entity';
-import { User } from 'src/user/entities/userEntity';
+import { 
+  PrimaryKey, 
+  AutoIncrement, 
+  Column, 
+  DataType, 
+  ForeignKey, 
+  Table, 
+  Model 
+} from 'sequelize-typescript';
+import { Tweet } from '../../tweet/entities/tweet.entity';
+import { User } from '../../user/entities/userEntity';
 
 @Table
 @ObjectType()
@@ -14,9 +22,10 @@ export class React extends Model{
 
   @ForeignKey(() => User)
   @Field(type => Int)
-  user_Id: number; 
+  user_Id: number
 
   @ForeignKey(() => Tweet)
   @Field(type => Int)
-  tweet_Id: number;
+  tweet_Id: number
+
 }
