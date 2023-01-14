@@ -2,11 +2,14 @@ import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nes
 import { TweetService } from './tweet.service';
 import { Tweet } from './entities/tweet.entity';
 import { CreateTweetInput } from './dto/create-tweet.input';
+import { React } from 'src/react/entities/react.entity';
+import { ReactService } from 'src/react/react.service';
 
 @Resolver(() => Tweet)
 export class TweetResolver {
   constructor(
-    private readonly tweetService: TweetService
+    private readonly tweetService: TweetService,
+    private readonly reactService: ReactService
     ){}
 
   @Mutation(() => Tweet)
@@ -23,6 +26,13 @@ export class TweetResolver {
   @Query(returns => [Tweet])
   findAllUserTweet(@Args('userId') userId: number) {
     return this.tweetService.findTweet(userId);
+  }
+
+  // Get Reacts on One Tweet
+  @ResolveField('react', returns => [React])
+  async getFollwing(@Parent() react: Tweet) {
+      const { id } = react; 
+      return this.reactService.findOnetweet(id);
   }
 
   /*@ResolveField(returns => User)

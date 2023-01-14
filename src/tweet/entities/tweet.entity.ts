@@ -21,7 +21,7 @@ export class Tweet extends Model {
   @Field(type => Int)
   userId: number;
 
-  @HasMany(() => React)
+  @HasMany(() => React, 'tweet_Id')
   @Field(type => [React],{nullable: 'items'})
   react: React[]
 
