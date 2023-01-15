@@ -9,19 +9,19 @@ export class ReactService {
     private readonly reactRepository: typeof React
   ){}
 
-  async create(createReactInput: CreateReactInput) {
+  async create(createReactInput: CreateReactInput): Promise<React> {
     return await this.reactRepository.create({...createReactInput})
   }
 
-  async findAll() {
+  async findAll() : Promise<React[]>{
     return await this.reactRepository.findAll()
   }
 
-  async findOnetweet(id: number) {
+  async findOnetweet(id: number) : Promise<React[]>{
     return await this.reactRepository.findAll({where: {tweet_Id: id}})
   }
 
-  async findOneUser(id: number) {
+  async findOneUser(id: number) : Promise<React[]>{
     return await this.reactRepository.findAll({where: {user_Id: id}})
   }
 

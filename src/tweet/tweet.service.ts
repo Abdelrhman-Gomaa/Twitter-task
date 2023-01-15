@@ -13,24 +13,24 @@ constructor(
   private readonly userRepository: typeof User*/
 ){}
 
-  async create(createTweetInput: CreateTweetInput) {
+  async create(createTweetInput: CreateTweetInput): Promise<Tweet> {
     return await this.tweetRepository.create({...createTweetInput})
   }
 
-  async findAllTweet() {
+  async findAllTweet(): Promise<Tweet[]> {
     //return 'gg'
     return await this.tweetRepository.findAll()
   }
 
-  async findTweet(userId:number) {
+  async findTweet(userId:number) : Promise<Tweet[]>{
     return await this.tweetRepository.findAll({where:{userId:userId}})
   }
 
-  async findOneTweet(id:number) {
+  async findOneTweet(id:number) : Promise<Tweet>{
     return await this.tweetRepository.findOne({where: {id:id}})
   }
 
-  async findByIds(ids: number[]) {
+  async findByIds(ids: number[]) : Promise<Tweet[]>{
     const user = this.tweetRepository.findAll({where: {id: ids}})
     return user;
   }

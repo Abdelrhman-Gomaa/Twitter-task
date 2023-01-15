@@ -25,32 +25,27 @@ export class UserService {
         return this.dataloader.loadMany(ids)
     }
 
-    async findAll() {
+    async findAll() : Promise<User[]>{
         const user = this.userRepository.findAll()
         return user;
     }
 
-    async findOneUser(email: string) {
+    async findOneUser(email: string) : Promise<User>{
         const user = this.userRepository.findOne({where: {email: email}})
         return user;
     }
 
-    async findUserById(id: number) {
+    async findUserById(id: number) : Promise<User>{
         const user = this.userRepository.findOne({where: {id: id}})
         return user;
     }
 
-    async findByIds(ids: number[]) {
+    async findByIds(ids: number[]) : Promise<User[]>{
         const user = this.userRepository.findAll({where: {id: ids}})
         return user;
     }
 
-    async findfollower(id: number) {
-        const user = this.userRepository.findOne({where: {id: id}})
-        return user;
-    }
-
-    async register(createUserDto: CreateUserDto){
+    async register(createUserDto: CreateUserDto): Promise<User>{
         const existUser = await this.userRepository.findOne({
             where: {
                 [Op.or]: [{ username: createUserDto.username }, { email: createUserDto.email }]
@@ -77,21 +72,7 @@ export class UserService {
         }
     }
 
-    /*async signIn(loginUserDto: LoginUserDto){ //: Promise<{accessToken: string}>
-        const user = await this.validationUserPassword(loginUserDto)
-        if(!user) {
-            throw new UnauthorizedException('Invalid Credentials')
-        }
-
-        const payload: JwtPayload = { email: user.email , isAdmin: user.isAdmin }
-        const accessToken = await this.jwtService.sign(payload)
-        //const aa = await this.jwtService.verify(accessToken)
-        console.log(accessToken)
-        //return { accessToken }
-        return user
-    }*/
-
-    async login(loginUserDto: LoginUserDto){ //: Promise<{accessToken: string}>
+    async login(loginUserDto: LoginUserDto) {
         const user = await this.validationUserPassword(loginUserDto)
         if(!user) {
             throw new UnauthorizedException('Invalid Credentials')
@@ -108,11 +89,7 @@ export class UserService {
         }
     }
 
-    /*async getTweet(){
-
-    }*/
-
-    async validationUserPassword(loginUserDto: LoginUserDto){
+    async validationUserPassword(loginUserDto: LoginUserDto): Promise<any>{
         const user = await this.userRepository.findOne({where: {email: loginUserDto.email}})
         if(user){
             if(await user.validatePassword(loginUserDto.password)){
@@ -129,8 +106,8 @@ export class UserService {
             return null;
         }
     }
-//------------------------------------
-    async validation(email: string, password: string){
+    
+    async validation(email: string, password: string): Promise<any>{
         const user = await this.findOneUser(email)
         if(user){
             if(await user.validatePassword(password)){
