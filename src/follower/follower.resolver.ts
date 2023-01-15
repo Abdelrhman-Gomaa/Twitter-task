@@ -4,8 +4,11 @@ import { Follower } from './entities/follower.entity';
 import { CreateFollowerInput } from './dto/create-follower.input';
 import { User } from 'src/user/entities/UserEntity';
 import { UserService } from 'src/user/user.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGaurd } from '../user/jwt-auth.caurd';
 
 @Resolver(() => Follower)
+@UseGuards(JwtAuthGaurd)
 export class FollowerResolver {
   constructor(
     private readonly followerService: FollowerService,

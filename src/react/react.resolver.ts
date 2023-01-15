@@ -6,8 +6,11 @@ import { User } from 'src/user/entities/UserEntity';
 import { UserService } from 'src/user/user.service';
 import { TweetService } from 'src/tweet/tweet.service';
 import { Tweet } from 'src/tweet/entities/tweet.entity';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGaurd } from '../user/jwt-auth.caurd';
 
 @Resolver(() => React)
+@UseGuards(JwtAuthGaurd)
 export class ReactResolver {
   constructor(
     private readonly reactService: ReactService,

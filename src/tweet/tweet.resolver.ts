@@ -4,8 +4,11 @@ import { Tweet } from './entities/tweet.entity';
 import { CreateTweetInput } from './dto/create-tweet.input';
 import { React } from 'src/react/entities/react.entity';
 import { ReactService } from 'src/react/react.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGaurd } from '../user/jwt-auth.caurd';
 
 @Resolver(() => Tweet)
+@UseGuards(JwtAuthGaurd)
 export class TweetResolver {
   constructor(
     private readonly tweetService: TweetService,
