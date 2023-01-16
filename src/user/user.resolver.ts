@@ -56,9 +56,9 @@ export class UserResolver {
     return this.tweetService.findTweet(id);
     }
 
-    /*@ResolveProperty('tweets')
-    async tweet(@Root() tweet: Tweet, @Context() ctx:MyContext): Promise<Tweet[]>{
-        return await ctx.tweetLoader.load(tweet.userId)
+    /*@ResolveProperty('tweets', returns => [Tweet])
+    async tweet(@Root() user: User, @Context() ctx:MyContext): Promise<Tweet[]>{
+        return await ctx.tweetLoader.load(user.id)
     }*/
 
     // Get FOllowers

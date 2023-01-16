@@ -14,6 +14,8 @@ const batchTweets: BatchTweet = async ids => {
     });
   
     return ids.map(id => tweetMap[id]);
+    
+    //return ids.map((id) => tweets.find(tweet => tweet.id === id));
   };
   
   export const TweetLoader = () => new DataLoader<number, Tweet>(batchTweets);
