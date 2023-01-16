@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsAlpha, IsArray, IsBoolean, IsNumber, IsString, Matches, MaxLength, MinLength, minLength } from "class-validator";
+import { IsAlpha, IsBoolean, IsEmail, IsNumber, IsString, Matches, MaxLength, Min, MinLength } from "class-validator";
 
 @InputType() //'User',{isAbstract: true}
 export class CreateUserDto {
@@ -10,6 +10,7 @@ export class CreateUserDto {
     readonly username: string;
 
     @IsString()
+    @IsEmail()
     @Field()
     readonly email: string;
 
@@ -24,6 +25,7 @@ export class CreateUserDto {
     readonly password: string;
 
     @IsNumber()
+    @Min(18)
     @Field(type => Int)
     readonly age: number;
     

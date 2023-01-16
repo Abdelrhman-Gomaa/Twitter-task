@@ -1,10 +1,11 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 
-@InputType() //'Tweet',{isAbstract: true}
+@InputType()
 export class CreateTweetInput {
   
   @IsString()
+  @IsNotEmpty()
   @Field()
   readonly text: string;
 
