@@ -1,2 +1,2 @@
-# Micro-Market
-Online Market for search engine for local products in warehouses and buy it online. Built the RESTful API. Used NestJs Framework and Sequwelize for the RESTful API. Technologies: Typescript, Nodejs, NestJs, SequelizeORM, PostgreSQL, Swagger UI . 
+# Twitter Task
+This is Task for create user (registeration and signin), user can follow others and can list his followers and following, user can tweet and react other users tweets. Used NestJs Framework and Sequwelize for the GraphQL. Technologies: Typescript, Nodejs, NestJs, SequelizeORM, PostgreSQL, GraphQL. 
